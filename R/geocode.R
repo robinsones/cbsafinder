@@ -65,6 +65,7 @@ geocode_address <- function(address, key=NULL) {
 #' @importFrom dplyr %>% select filter slice
 #' @importFrom tibble as_data_frame
 #' @importFrom stringr str_replace
+#' @importFrom stats setNames
 #' @export
 google_geocode_address <- function(address, key=NULL, ...) {
 
