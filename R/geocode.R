@@ -96,7 +96,7 @@ google_geocode_address <- function(address, key=NULL, ...) {
     as.list
 
   county <- googleway::geocode_address_components(resp) %>%
-    as_data_frame %>%
+    as_data_frame() %>%
     filter(map_lgl(types, ~ 'administrative_area_level_2' %in% .x)) %>%
     slice(1) %>%
     select(county_name=long_name) %>%
