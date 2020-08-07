@@ -59,7 +59,12 @@ geocode_address <- function(address, key=NULL) {
   geocode_info[order(names(geocode_info))]
 }
 
-
+#' Geocode Address with Google
+#' @param address A street address
+#'
+#' @param key API key
+#' @param ... one or more arguments
+#'
 #' @importFrom googleway google_geocode
 #' @importFrom purrr %||% map_lgl
 #' @importFrom dplyr %>% select filter slice
@@ -132,10 +137,16 @@ census_geocode_params <- function(...) {
   list_modify(params, ...)
 }
 
-
+#' Reverse geocode with census
+#' @param lon longitude
+#'
+#' @param lat latitude
+#' @param ... one or more arguments
+#'
 #' @importFrom stringr str_replace_all
 #' @export
 census_reverse_geocode <- function(lon, lat, ...) {
+
   query <- census_geocode_params(...)
   query <- c(x=lon, y=lat, query)
   query_str <- paste(paste(names(query), as.character(query), sep='='), collapse='&')
