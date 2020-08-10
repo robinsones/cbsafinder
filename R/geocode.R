@@ -69,7 +69,7 @@ geocode_address <- function(address, key=NULL) {
 #' @importFrom purrr %||% map_lgl
 #' @importFrom dplyr %>% select filter slice
 #' @importFrom tibble as_data_frame
-#' @importFrom stringr str_replace
+#' @importFrom stringr str_remove
 #' @importFrom stats setNames
 #' @export
 google_geocode_address <- function(address, key=NULL, ...) {
@@ -84,7 +84,7 @@ google_geocode_address <- function(address, key=NULL, ...) {
   }
   addr_clean <- list(address=googleway::geocode_address(resp)[1] %>%
                        toupper %>%
-                       str_replace(', USA$', ''))
+                       str_remove(', USA$'))
 
   coordinates <- googleway::geocode_coordinates(resp)[1, ] %>%
     setNames(c('latitude', 'longitude'))
