@@ -73,8 +73,7 @@ geocode_address <- function(address, key=NULL) {
 #' @importFrom stats setNames
 #' @export
 google_geocode_address <- function(address, key=NULL, ...) {
-
-  key = key %||% Sys.getenv('GOOGLE_API_KEY')
+  key <- key %||% Sys.getenv('GOOGLE_API_KEY')
   if (key == '') {
     stop('Missing API key for google geocoder.')
   }
@@ -82,26 +81,28 @@ google_geocode_address <- function(address, key=NULL, ...) {
   if (!(resp$status == 'OK') || (length(resp$results) <= 0)) {
     return(list())
   }
-  addr_clean <- list(address=googleway::geocode_address(resp)[1] %>%
+  addr_clean <- list(address = googleway::geocode_address(resp)[1] %>%
                        toupper %>%
                        str_remove(', USA$'))
 
   coordinates <- googleway::geocode_coordinates(resp)[1, ] %>%
     setNames(c('latitude', 'longitude'))
 
-  zip <- googleway::geocode_address_components(resp) %>%
+  address_components <- googleway::geocode_address_components(resp)
+
+  zip <- address_components %>%
     filter(map_lgl(types, ~ 'postal_code' %in% .x)) %>%
     slice(1) %>%
-    select(zip=short_name) %>%
+    select(zip = short_name) %>%
     as.list
 
-  state <- googleway::geocode_address_components(resp) %>%
+  state <- address_components %>%
     filter(map_lgl(types, ~ 'administrative_area_level_1' %in% .x)) %>%
     slice(1) %>%
     select(state_name=long_name, state_abbr=short_name) %>%
     as.list
 
-  county <- googleway::geocode_address_components(resp) %>%
+  county <- address_components %>%
     as_data_frame() %>%
     filter(map_lgl(types, ~ 'administrative_area_level_2' %in% .x)) %>%
     slice(1) %>%
@@ -116,7 +117,7 @@ google_geocode_address <- function(address, key=NULL, ...) {
     }
   }
 
-  county$county_name <- str_replace(county$county_name, '\\s+County$', '')
+  county$county_name <- str_remove(county$county_name, '\\s+County$')
   c(addr_clean, county, zip, state, coordinates)
 }
 
