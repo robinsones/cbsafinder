@@ -68,7 +68,7 @@ geocode_address <- function(address, key=NULL) {
 #' @importFrom googleway google_geocode
 #' @importFrom purrr %||% map_lgl
 #' @importFrom dplyr %>% select filter slice
-#' @importFrom tibble as_data_frame
+#' @importFrom tibble as_tibble
 #' @importFrom stringr str_remove str_replace
 #' @importFrom stats setNames
 #' @export
@@ -103,7 +103,7 @@ google_geocode_address <- function(address, key=NULL, ...) {
     as.list
 
   county <- address_components %>%
-    as_data_frame() %>%
+    as_tibble() %>%
     filter(map_lgl(types, ~ 'administrative_area_level_2' %in% .x)) %>%
     slice(1) %>%
     select(county_name=long_name) %>%
