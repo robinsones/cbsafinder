@@ -2,7 +2,7 @@
 title: "Get Google API Key"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{get_google_api_key}
+  %\VignetteIndexEntry{Get Google API Key}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,8 +14,38 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(cbsafinder)
+## Create a Project and an API Key 
+
+Before you can use the functions in this package, you need to get a Google API Key and enable it to use the Geocoding API. 
+
+First, follow the 5 steps under "Get the API Key" on [this page](https://developers.google.com/maps/documentation/javascript/get-api-key). For step 3, if it says you don't have sufficient permission to view this page, go back and select your project from the top left next to the search bar.
+
+At step 4, don't restrict anything for now.
+
+## Add your API Key to R
+
+Copy your API Key (if you misplaced it, you can find it again [here](https://console.developers.google.com/apis/credentials)) and save it to your R environment. You can do this with `usethis::edit_r_environ()`, which will open your R environment. Then add: 
+
+```
+GOOGLE_API_KEY = YOUR_API_KEY 
 ```
 
-Example here!!
+where `YOUR_API_KEY` is the API Key. For this to take effect, save the file and restart R.  
+
+Now for using the functions in this package, you don't need put your api key as the `key` argument. But before the functions in this package will work, you need to enable your key to use the geocoding API> 
+
+## Enable Geocoding API  
+
+Once you have your API key, go to [this link](https://console.developers.google.com/apis/library/geocoding-backend.googleapis.com?filter=category:maps&id=42fea2de-420b-4bd7-bd89-225be3b8b7b0&project=cbsa-app&authuser=1) and click enable. 
+
+## Enable Billing and set Quotas 
+
+To use the Geocoding API, you'll need to enable billing for Google Cloud. Fortunately, Google Cloud offers $200 in free credit each month. At a rate of \$5 per 1k requests for this API, that means you can make 40,000 requests before you will start being charged. 
+
+You should see a banner at the top of the screen that says "your free trial is waiting." Click on it and fill out your address and credit card, setting yourself as an individual account. 
+
+Now, restrict your API key only geocoding api by going to api & services, clicking the pencil on your api key, and under "API restrictions" clicking "restrict key" and selecting the geocoding api.  
+
+To make sure you don't go over the limit and get charged, you can set quotas for your usage. Follow the steps on "Manage your cost of use" on [this page](https://developers.google.com/maps/documentation/geocoding/usage-and-billing?hl=en_US). Note "Advanced maps load card" (step 5) doesn't exist - instead click all of the things you see and edit the quota limits in each to be 1200 or lower per day. 
+
+To check everything works, try running `geocode_address('767 Fifth Avenue New York, NY 10153')`. 
