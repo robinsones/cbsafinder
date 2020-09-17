@@ -45,15 +45,24 @@ geocode_address("4059 Mount Lee Drive")
 
 Just be sure to pass the address as a string (i.e. remember your ""), or the function will fail.  
 
-```{r eval = FALSE}
+```{r error = TRUE}
 geocode_address(4059 Mount Lee Drive, Hollywood, CA 90068)
 ```
 
-Lastly, geocode_address() takes one address as an argument and no more, so something like this will also fail.  
+Also, ``geocode_address()`` takes one address as an argument and no more, so something like this will also fail.  
 
-```{r eval = FALSE}
+```{r error = TRUE}
 geocode_address(c("4059 Mount Lee Drive, Hollywood, CA 90068", "The White House, 1600 Pennsylvania Avenue NW, Washington, DC 20500"))
 ```
+
+But purrr's map family of functions comes in handy for passing multiple addresses at once. Here we use ``purrr::map_df()`` to return a user friendly output. 
+
+```{r}
+my_addresses <- c("4059 Mount Lee Drive, Hollywood, CA 90068", "The White House, 1600 Pennsylvania Avenue NW, Washington, DC 20500")
+
+purrr::map_df(my_addresses, ~cbsafinder::geocode_address(.x))
+```
+
 
 ## Where to Find Help
 

@@ -123,14 +123,36 @@ the function will fail.
 
 ``` r
 geocode_address(4059 Mount Lee Drive, Hollywood, CA 90068)
+#> Error: <text>:1:22: unexpected symbol
+#> 1: geocode_address(4059 Mount
+#>                          ^
 ```
 
-Lastly, geocode\_address() takes one address as an argument and no more,
+Also, `geocode_address()` takes one address as an argument and no more,
 so something like this will also
 fail.
 
 ``` r
 geocode_address(c("4059 Mount Lee Drive, Hollywood, CA 90068", "The White House, 1600 Pennsylvania Avenue NW, Washington, DC 20500"))
+#> Error in check_address(address): address must be a string of length 1
+```
+
+But purrr’s map family of functions comes in handy for passing multiple
+addresses at once. Here we use `purrr::map_df()` to return a user
+friendly
+output.
+
+``` r
+my_addresses <- c("4059 Mount Lee Drive, Hollywood, CA 90068", "The White House, 1600 Pennsylvania Avenue NW, Washington, DC 20500")
+
+purrr::map_df(my_addresses, ~cbsafinder::geocode_address(.x))
+#> # A tibble: 2 x 13
+#>   address cbsa_id cbsa_name census_tract_id census_tract_na… county_id
+#>   <chr>   <chr>   <chr>     <chr>           <chr>            <chr>    
+#> 1 MT LEE… 31080   Los Ange… 06037980009     9800.09          06037    
+#> 2 1600 P… 47900   Washingt… 11001006202     62.02            11001    
+#> # … with 7 more variables: county_name <chr>, latitude <dbl>, longitude <dbl>,
+#> #   state_abbr <chr>, state_id <chr>, state_name <chr>, zip <chr>
 ```
 
 ## Where to Find Help
