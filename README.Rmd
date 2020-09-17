@@ -15,22 +15,46 @@ knitr::opts_chunk$set(
 
 # cbsafinder
 
-The goal of cbsafinder is finding the CBSA of US addresses, using the census and Google geocoding APIs. 
+## Overview
+
+The goal of cbsafinder is finding the CBSA of US addresses, using the census and Google geocoding APIs. CBSAs are core based statistical areas; they represent one or more counties tied to an urban center of a given size. CBSAs are often used in the retail and real estate industries to help determine the geographic area of a given address. 
 
 ## Installation
 
-Install the package from [GitHub](https://github.com/) with:
+Install the development version of the package from [GitHub](https://github.com/) with:
 
-```{r}
+```{r eval = FALSE}
 # install.packages("devtools")
 devtools::install_github("WarbyParker/cbsafinder")
 ```
 
-## Example
+## Getting Started
 
-This is a basic example which shows you how to solve a common problem:
+First, start by loading the package. The core function in cbsafinder looks up the CBSA (and a few other bits of handy info) given a U.S. address. So let's say that you want to know the CBSA of the giant Hollywood sign in California. Pass the address as a string to geocode_address() and voila! The Hollywood sign is in Los Angeles-Long Beach-Anaheim, CA.  
 
 ```{r example}
 library(cbsafinder)
-## basic example code
+geocode_address("4059 Mount Lee Drive, Hollywood, CA 90068")
 ```
+
+If you only know part of the address or forget to enter some info, the function still works! 
+
+```{r}
+geocode_address("4059 Mount Lee Drive")
+```
+
+Just be sure to pass the address as a string (i.e. remember your ""), or the function will fail.  
+
+```{r eval = FALSE}
+geocode_address(4059 Mount Lee Drive, Hollywood, CA 90068)
+```
+
+Lastly, geocode_address() takes one address as an argument and no more, so something like this will also fail.  
+
+```{r eval = FALSE}
+geocode_address(c("4059 Mount Lee Drive, Hollywood, CA 90068", "The White House, 1600 Pennsylvania Avenue NW, Washington, DC 20500"))
+```
+
+## Where to Find Help
+
+If you find a bug, please file a reproducible example on [GitHub](https://github.com/WarbyParker/cbsafinder).
