@@ -136,4 +136,4 @@ geocode_address(c("4059 Mount Lee Drive, Hollywood, CA 90068", "The White House,
 ## Where to Find Help
 
 If you find a bug, please file a reproducible example on
-[GitHub](https://github.com/WarbyParker/cbsafinder).
+[GitHub](https://github.com/WarbyParker/cbsafinder/issues).
