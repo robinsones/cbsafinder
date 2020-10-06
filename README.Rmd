@@ -17,21 +17,15 @@ knitr::opts_chunk$set(
 
 ## Overview
 
-The goal of cbsafinder is finding the CBSA of US addresses, using the census and Google geocoding APIs. 
+The goal of cbsafinder is finding the CBSA (Census Bureau Statistical Area) of the US addresses. 
 
-Why can’t I just use zip codes for my geographic analysis?
+CBSA's represent one or more counties tied to an urban center of a given size. CBSAs are often used in the retail and real estate industries to help determine the geographic area of a given address.
 
-Zip codes were developed for one purpose, to deliver mail, not to do any kind of geographic analysis of data for metropolitan areas. What this means is that they are poor representations of geographic data. 
+While a zip code is usually more readily available, they are poor representations of a geographic area they sometimes overlap and there are often many zip codes in a metro area. They were developed solely to deliver mail and not for geographic analysis, unlike CBSAs.  
 
-Problems that often crop up are:
-	- that they overlap and/or don’t represent contiguous regions
-	- there are often many zip codes in one metro area.
-	
-One noteable example is that the Empire State Building has its own zip code. 
+This package contains no Warby Parker data.  
 
-For these reasons we use CBSA’s (Census Bureau Statistical Areas) for our geographic analysis. CBSA's represent one or more counties tied to an urban center of a given size. CBSAs are often used in the retail and real estate industries to help determine the geographic area of a given address. 
-
-We wrote an R Package so that you can use them for your geographic analysis too!
+We wrote an R Package so that you can use CBSAs for your geographic analysis too!
 
 
 ## Installation
