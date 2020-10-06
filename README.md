@@ -1,34 +1,39 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+cbsafinder
+==========
 
-# cbsafinder
+Overview
+--------
 
-## Overview
+The goal of cbsafinder is finding the CBSA of US addresses, using the census and Google geocoding APIs.
 
-The goal of cbsafinder is finding the CBSA of US addresses, using the
-census and Google geocoding APIs. CBSAs are core based statistical
-areas; they represent one or more counties tied to an urban center of a
-given size. CBSAs are often used in the retail and real estate
-industries to help determine the geographic area of a given address.
+Why can’t I just use zip codes for my geographic analysis?
 
-## Installation
+Zip codes were developed for one purpose, to deliver mail, not to do any kind of geographic analysis of data for metropolitan areas. What this means is that they are poor representations of geographic data.
 
-Install the development version of the package from
-[GitHub](https://github.com/) with:
+Problems that often crop up are: - that they overlap and/or don’t represent contiguous regions - there are often many zip codes in one metro area.
+
+One noteable example is that the Empire State Building has its own zip code.
+
+For these reasons we use CBSA’s (Census Bureau Statistical Areas) for our geographic analysis. CBSA's represent one or more counties tied to an urban center of a given size. CBSAs are often used in the retail and real estate industries to help determine the geographic area of a given address.
+
+We wrote an R Package so that you can use them for your geographic analysis too!
+
+Installation
+------------
+
+Install the development version of the package from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("WarbyParker/cbsafinder")
 ```
 
-## Getting Started
+Getting Started
+---------------
 
-First, start by loading the package. The core function in cbsafinder
-looks up the CBSA (and a few other bits of handy info) given a U.S.
-address. So let’s say that you want to know the CBSA of the giant
-Hollywood sign in California. Pass the address as a string to
-geocode\_address() and voila\! The Hollywood sign is in Los Angeles-Long
-Beach-Anaheim, CA.
+First, start by loading the package. The core function in cbsafinder looks up the CBSA (and a few other bits of handy info) given a U.S. address. So let's say that you want to know the CBSA of the giant Hollywood sign in California. Pass the address as a string to geocode\_address() and voila! The Hollywood sign is in Los Angeles-Long Beach-Anaheim, CA.
 
 ``` r
 library(cbsafinder)
@@ -73,8 +78,7 @@ geocode_address("4059 Mount Lee Drive, Hollywood, CA 90068")
 #> [1] "90068"
 ```
 
-If you only know part of the address or forget to enter some info, the
-function still works\!
+If you only know part of the address or forget to enter some info, the function still works!
 
 ``` r
 geocode_address("4059 Mount Lee Drive")
@@ -118,8 +122,7 @@ geocode_address("4059 Mount Lee Drive")
 #> [1] "90068"
 ```
 
-Just be sure to pass the address as a string (i.e. remember your ""), or
-the function will fail.
+Just be sure to pass the address as a string (i.e. remember your ""), or the function will fail.
 
 ``` r
 geocode_address(4059 Mount Lee Drive, Hollywood, CA 90068)
@@ -128,19 +131,14 @@ geocode_address(4059 Mount Lee Drive, Hollywood, CA 90068)
 #>                          ^
 ```
 
-Also, `geocode_address()` takes one address as an argument and no more,
-so something like this will also
-fail.
+Also, `geocode_address()` takes one address as an argument and no more, so something like this will also fail.
 
 ``` r
 geocode_address(c("4059 Mount Lee Drive, Hollywood, CA 90068", "The White House, 1600 Pennsylvania Avenue NW, Washington, DC 20500"))
 #> Error in check_address(address): address must be a string of length 1
 ```
 
-But purrr’s map family of functions comes in handy for passing multiple
-addresses at once. Here we use `purrr::map_df()` to return a user
-friendly
-output.
+But purrr's map family of functions comes in handy for passing multiple addresses at once. Here we use `purrr::map_df()` to return a user friendly output.
 
 ``` r
 my_addresses <- c("4059 Mount Lee Drive, Hollywood, CA 90068", "The White House, 1600 Pennsylvania Avenue NW, Washington, DC 20500")
@@ -155,7 +153,7 @@ purrr::map_df(my_addresses, ~cbsafinder::geocode_address(.x))
 #> #   state_abbr <chr>, state_id <chr>, state_name <chr>, zip <chr>
 ```
 
-## Where to Find Help
+Where to Find Help
+------------------
 
-If you find a bug, please file a reproducible example on
-[GitHub](https://github.com/WarbyParker/cbsafinder/issues).
+If you find a bug, please file a reproducible example on [GitHub](https://github.com/WarbyParker/cbsafinder/issues).
