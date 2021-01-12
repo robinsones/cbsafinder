@@ -133,7 +133,7 @@ census_geocode_params <- function(...) {
 
   params <- list(format='json',
                  benchmark='Public_AR_Current',
-                 vintage='ACS2015_Current',
+                 vintage='Current_Current',
                  layers=paste(default_layers, collapse=','))
   list_modify(params, ...)
 }
