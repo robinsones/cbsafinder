@@ -130,6 +130,7 @@ census_geocode_params <- function(...) {
                       'Micropolitan Statistical Areas',
                       'States',
                       'Counties')
+  default_layers <- str_replace_all(default_layers, " ", "%20")
 
   params <- list(format='json',
                  benchmark='Public_AR_Current',
