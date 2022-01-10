@@ -34,7 +34,7 @@ GOOGLE_API_KEY = YOUR_API_KEY
 
 where `YOUR_API_KEY` is the API Key. For this to take effect, save the file and restart R.  
 
-Now for using the functions in this package, you don't need put your api key as the `key` argument. But before the functions in this package will work, you need to enable your key to use the geocoding API> 
+Now for using the functions in this package, you don't need put your api key as the `key` argument. But before the functions in this package will work, you need to enable your key to use the geocoding API. 
 
 ## Enable Geocoding API  
 
