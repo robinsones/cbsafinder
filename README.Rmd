@@ -1,10 +1,10 @@
 ---
-output: github_document
+  output: github_document
 ---
-
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
-```{r, include = FALSE}
+  
+  <!-- README.md is generated from README.Rmd. Please edit that file -->
+  
+  ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -34,7 +34,13 @@ Install the development version of the package from [GitHub](https://github.com/
 
 ```{r eval = FALSE}
 # install.packages("devtools")
-devtools::install_github("WarbyParker/cbsafinder")
+devtools::install_github("WarbyParker/cbsafinder", build_vignettes = TRUE)
+```
+
+You'll also need to get a Google API key and enable it to use the Geocoding API - you can find instructions in our Vignette by running: 
+  
+```{r eval = FALSE}
+vignette("get_google_api_key", package = "cbsafinder")
 ```
 
 ## Getting Started
